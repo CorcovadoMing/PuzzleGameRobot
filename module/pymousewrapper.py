@@ -1,4 +1,5 @@
 from Quartz.CoreGraphics import *
+import time 
 
 def mouseEvent(type, posx, posy):
     theEvent = CGEventCreateMouseEvent(
@@ -16,8 +17,11 @@ def mouseClick(posx, posy):
     mouseEvent(kCGEventLeftMouseUp, posx,posy);
 
 def mouseDrag(start_posx, start_posy, end_posx, end_posy):
+    time.sleep(.1)
     mouseEvent(kCGEventLeftMouseDown, start_posx, start_posy)
+    time.sleep(.5)
     mouseMove(end_posx, end_posy)
+    time.sleep(.5)
     mouseEvent(kCGEventLeftMouseUp, end_posx, end_posy)
     
 def getLocation():
