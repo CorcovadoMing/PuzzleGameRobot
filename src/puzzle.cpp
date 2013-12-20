@@ -122,7 +122,7 @@ void analysis(){
 
 int main (int argc, char const *argv[]){
     initRandomize();
-    vector<int> path = II(500, 1, 1);
+    vector<int> path = II(100, 0, 0);
     vector<int> clean = cleanPath(path);
     
     for(int i: clean){

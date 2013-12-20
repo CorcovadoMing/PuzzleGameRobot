@@ -18,3 +18,4 @@ if __name__ == '__main__':
     output = [x for x in out.split(' ')]
     output.pop()
     print output
+    print len(output)
