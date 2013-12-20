@@ -2,10 +2,10 @@
 using namespace std;
 
 namespace global{
-    int size = 36;
-    int row = 6;
-    int col = 6;
-    int board[6][6] = {0};
+    const int size = 30;
+    const int row = 5;
+    const int col = 6;
+    int board[row][col] = {0};
 }
 
 vector<int> cleanPath(vector<int>& path){
@@ -49,8 +49,8 @@ vector<int> cleanPath(vector<int>& path){
 }
 
 void initRandomize(){
-    for(int i = 0; i < global::col; i++)
-        for(int j = 0; j < global::row; j++)
+    for(int i = 0; i < global::row; i++)
+        for(int j = 0; j < global::col; j++)
             global::board[i][j] = rand()%6; // six colors
 }
 
@@ -58,23 +58,32 @@ int checkAdjacent(){
     int r_cur = -1; int c_cur = -1;
     int score = 0;
 
-    for(int i = 0; i < global::col; i++){
-        for(int j = 0; j < global::row; j++){
+    for(int i = 0; i < global::row; i++){
+        for(int j = 0; j < global::col; j++){
             if(j == 0){
                 r_cur = global::board[i][j]; //row
-                c_cur = global::board[j][i]; //col
             }
             else{
                 //row
                 if(global::board[i][j] == r_cur) score++;
                 else r_cur = global::board[i][j];
-                
+            }
+        }
+    }
+    
+    for(int i = 0; i < global::col; i++){
+        for(int j = 0; j < global::row; j++){
+            if(j == 0){
+                c_cur = global::board[j][i]; //col
+            }
+            else{
                 //col
                 if(global::board[j][i] == c_cur) score++;
                 else c_cur = global::board[j][i];
             }
         }
     }
+    
     return score;
 }
 
@@ -83,16 +92,12 @@ int checkCombo(){
     int r_count = 0; int c_count = 0;
     int combo = 0;
     
-    for(int i = 0; i < global::col; i++){
-        for(int j = 0; j < global::row; j++){
+    for(int i = 0; i < global::row; i++){
+        for(int j = 0; j < global::col; j++){
             if(j == 0){
                 //row
                 r_cur = global::board[i][j];
                 r_count = 0;
-                
-                //col
-                c_cur = global::board[j][i];
-                c_count = 0;
             }
             else{
                 //row
@@ -104,7 +109,18 @@ int checkCombo(){
                     r_cur = global::board[i][j];
                     r_count = 0;
                 }
-                
+            }
+        }
+    }
+    
+    for(int i = 0; i < global::col; i++){
+        for(int j = 0; j < global::row; j++){
+            if(j == 0){
+                //col
+                c_cur = global::board[j][i];
+                c_count = 0;
+            }
+            else{
                 //col
                 if(global::board[j][i] == c_cur){
                     c_count++;
