@@ -1,4 +1,12 @@
-from Quartz.CoreGraphics import *
+from Quartz.CoreGraphics import CGEventCreateMouseEvent
+from Quartz.CoreGraphics import kCGMouseButtonLeft
+from Quartz.CoreGraphics import kCGHIDEventTap
+from Quartz.CoreGraphics import kCGEventMouseMoved
+from Quartz.CoreGraphics import kCGEventLeftMouseDown
+from Quartz.CoreGraphics import kCGEventLeftMouseUp
+from Quartz.CoreGraphics import CGEventCreate
+from Quartz.CoreGraphics import CGEventGetLocation
+from Quartz.CoreGraphics import CGEventPost
 import time 
 
 def mouseEvent(type, posx, posy):
