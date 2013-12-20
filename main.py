@@ -2,6 +2,7 @@ import os, sys, time
 lib_path = os.path.abspath('./module')
 sys.path.append(lib_path)
 from pymousewrapper import *
+from shell import *
 
 def run():
     time.sleep(1)
@@ -13,4 +14,7 @@ def run():
     #mouseDrag(770.55078125, 449.59765625,847.2890625, 382.8671875)
 
 if __name__ == '__main__':   
-    run()
+    out = shell_command(['puzzle'])
+    output = [x for x in out.split(' ')]
+    output.pop()
+    print output

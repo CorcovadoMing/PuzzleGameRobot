@@ -104,9 +104,8 @@ vector<int> II(int loop, int r, int c){
     return path;
 }
 
-int main (int argc, char const *argv[]){
+void analysis(){
     srand(time(0));
-    
     int times = 50;
     while(times--){
         int before = 0, after = 0;
@@ -119,23 +118,15 @@ int main (int argc, char const *argv[]){
         }
         cout << "improve: " << (after+0.1)/1000 - (before+0.1)/1000 << "\tresult: " << (after+0.1)/1000 << endl;
     }
-    
-    
-    /*
+}
+
+int main (int argc, char const *argv[]){
     initRandomize();
-    print();
     vector<int> path = II(500, 1, 1);
     vector<int> clean = cleanPath(path);
-    
-    for(int i: path){
-        cout << i << " ";
-    }
-    cout << endl << endl;
     
     for(int i: clean){
         cout << i << " ";
     }
-    cout << endl << endl;
-    */
     return 0;
 }
