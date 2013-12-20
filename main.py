@@ -5,21 +5,43 @@ from pymousewrapper import *
 from shell import *
 from screencapture import *
 
-def run():
-    time.sleep(1)
-    mouseClick(847.2890625, 382.8671875)
-    time.sleep(1)
-    mouseDrag(847.2890625, 382.8671875,847.2890625, 449.59765625)
-    #mouseDrag(847.2890625, 449.59765625,770.55078125, 449.59765625)
-    #mouseDrag(770.55078125, 449.59765625,771.59375, 376.55859375)
-    #mouseDrag(770.55078125, 449.59765625,847.2890625, 382.8671875)
+offsetx = (1108-698)/12
+offsety = (668-326)/10
+first_pointx = 698 + offsetx
+first_pointy = 326 + offsety
+offsetx *= 2
+offsety *= 2
+
+def run(path):
+    mouseClick(800, 30) # focus windows
+    curx, cury = first_pointx, first_pointy
+    mouseClickDown(curx, cury)
+    time.sleep(0.8)
+    for move in path:
+        if move == '0':
+            mouseMove(curx+offsetx, cury)
+            curx, cury = curx+offsetx, cury
+        elif move == '1':
+            mouseMove(curx, cury+offsety)
+            curx, cury = curx, cury+offsety
+        elif move == '2':
+            mouseMove(curx-offsetx, cury)
+            curx, cury = curx-offsetx, cury
+        elif move == '3':
+            mouseMove(curx, cury-offsety)
+            curx, cury = curx, cury-offsety
+        else:
+            print 'ERROR'
+    mouseClickUp(curx, cury)
 
 if __name__ == '__main__':   
-    shot()
-    out = shell_command(['/opt/local/bin/python2.7', './module/imageprocess.py'])
-    print out
-    out = shell_command(['puzzle'])
+    #shot()
+    para, err = shell_command(['/opt/local/bin/python2.7', './module/imageprocess.py'])
+    command = ['puzzle']
+    parac = [x for x in para.split(' ')]
+    for x in parac:
+        command.append(x)
+    out, err = shell_command(command)
     output = [x for x in out.split(' ')]
     output.pop()
-    print output
-    print len(output)
+    run(output)

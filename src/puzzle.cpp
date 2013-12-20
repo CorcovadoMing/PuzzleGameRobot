@@ -121,10 +121,10 @@ void analysis(){
 }
 
 int main (int argc, char const *argv[]){
-    initRandomize();
+    //initRandomize();
+    readMatrix(argc, argv);
     vector<int> path = II(100, 0, 0);
     vector<int> clean = cleanPath(path);
-    
     for(int i: clean){
         cout << i << " ";
     }

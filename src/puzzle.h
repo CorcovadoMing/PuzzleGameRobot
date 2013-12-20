@@ -54,6 +54,20 @@ void initRandomize(){
             global::board[i][j] = rand()%6; // six colors
 }
 
+void readMatrix(int argc, char const *argv[]){
+    vector<int> tmp;
+    for(int i = 1; i < argc; i++){
+        tmp.push_back(*argv[i]-'0');
+    }
+    int t = 0;
+    for(int i = 0; i < global::row; i++)
+        for(int j = 0; j < global::col; j++){
+            global::board[i][j] = tmp[t];
+            t++;
+        }
+}
+
+
 int checkAdjacent(){
     int r_cur = -1; int c_cur = -1;
     int score = 0;

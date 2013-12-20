@@ -1,3 +1,4 @@
+from __future__ import print_function
 import Image
 
 def cluster(r, g, b):
@@ -41,4 +42,4 @@ def get_color_map():
     return ' '.join([str(x) for x in result])
 
 if __name__ in '__main__':
-    print get_color_map()
+    print(get_color_map(), end='')

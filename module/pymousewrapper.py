@@ -18,20 +18,19 @@ def mouseEvent(type, posx, posy):
     CGEventPost(kCGHIDEventTap, theEvent)
 
 def mouseMove(posx, posy):
+    time.sleep(0.09)
     mouseEvent(kCGEventMouseMoved, posx, posy);
 
-def mouseClick(posx, posy):
+def mouseClickDown(posx, posy):
     mouseEvent(kCGEventLeftMouseDown, posx,posy);
+
+def mouseClickUp(posx, posy):
     mouseEvent(kCGEventLeftMouseUp, posx,posy);
 
-def mouseDrag(start_posx, start_posy, end_posx, end_posy):
-    time.sleep(.1)
-    mouseEvent(kCGEventLeftMouseDown, start_posx, start_posy)
-    time.sleep(.5)
-    mouseMove(end_posx, end_posy)
-    time.sleep(.5)
-    mouseEvent(kCGEventLeftMouseUp, end_posx, end_posy)
-    
+def mouseClick(posx, posy):
+    mouseClickDown(posx, posy)
+    mouseClickUp(posx, posy)
+
 def getLocation():
     ourEvent = CGEventCreate(None)
     currentpos = CGEventGetLocation(ourEvent)
