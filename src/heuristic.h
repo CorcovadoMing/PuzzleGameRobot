@@ -119,14 +119,3 @@ void analysis(){
         cout << "improve: " << (after+0.1)/1000 - (before+0.1)/1000 << "\tresult: " << (after+0.1)/1000 << endl;
     }
 }
-
-int main (int argc, char const *argv[]){
-    //initRandomize();
-    readMatrix(argc, argv);
-    vector<int> path = II(100, 0, 0);
-    vector<int> clean = cleanPath(path);
-    for(int i: clean){
-        cout << i << " ";
-    }
-    return 0;
-}
