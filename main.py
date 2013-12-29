@@ -4,6 +4,7 @@ sys.path.append(lib_path)
 from pymousewrapper import *
 from shell import *
 from screencapture import *
+from imageprocess import *
 
 offsetx = (1108-698)/12
 offsety = (668-326)/10
@@ -35,11 +36,11 @@ def run(path):
     mouseClickUp(curx, cury)
 
 if __name__ == '__main__':   
-    #shot()
-    para, err = shell_command(['/opt/local/bin/python2.7', './module/imageprocess.py'])
+    shot()
+    color_map = get_color_map()
     command = ['puzzle']
-    parac = [x for x in para.split(' ')]
-    for x in parac:
+    color = [x for x in color_map.split(' ')]
+    for x in color:
         command.append(x)
     out, err = shell_command(command)
     output = [x for x in out.split(' ')]
