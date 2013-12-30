@@ -2,26 +2,21 @@
 #include <vector>
 #include <ctime>
 #include "puzzle.h"
+
 using namespace std;
-
-double fitness();
-
-void print(){
-    for(int i = 0; i < global::row; i++){
-        for(int j = 0; j < global::col; j++)
-            cout << global::board[i][j] << " ";
-        cout << endl;
-    }
-    cout << "adjacent: " << checkAdjacent() << endl;
-    cout << "combo: " << checkCombo() << endl;
-    cout << "fitness: " << fitness() << endl << endl;
-}
 
 double fitness(){
     return checkAdjacent() + 2.5 *checkCombo();
 }
 
-vector<int> II(int loop, int r, int c){
+double computeFitness(int &a, int &b){
+	swap(a, b);
+	double tmp_fitness = fitness();
+	swap(a, b);
+	return tmp_fitness;
+}
+
+vector<int> trackHeuristic(int loop, int r, int c){
     const int r_range = 5, c_range = 6;
     int cur_r = r, cur_c = c; // starting point
     vector<int> path;
@@ -31,27 +26,19 @@ vector<int> II(int loop, int r, int c){
         // R -> D -> L -> U
         // R
         if(cur_c + 1 < c_range){
-            swap(global::board[cur_r][cur_c], global::board[cur_r][cur_c+1]);
-            score[0] = fitness();
-            swap(global::board[cur_r][cur_c], global::board[cur_r][cur_c+1]);
+            score[0] = computeFitness(global::board[cur_r][cur_c], global::board[cur_r][cur_c+1]);
         }
         // D
         if(cur_r + 1 < r_range){
-            swap(global::board[cur_r][cur_c], global::board[cur_r+1][cur_c]);
-            score[1] = fitness();
-            swap(global::board[cur_r][cur_c], global::board[cur_r+1][cur_c]);
+            score[1] = computeFitness(global::board[cur_r][cur_c], global::board[cur_r+1][cur_c]);
         }
         // L
         if(cur_c - 1 > -1){
-            swap(global::board[cur_r][cur_c], global::board[cur_r][cur_c-1]);
-            score[2] = fitness();
-            swap(global::board[cur_r][cur_c], global::board[cur_r][cur_c-1]);
+            score[2] = computeFitness(global::board[cur_r][cur_c], global::board[cur_r][cur_c-1]);
         }
         // U
         if(cur_r -1 > -1){
-            swap(global::board[cur_r][cur_c], global::board[cur_r-1][cur_c]);
-            score[3] = fitness();
-            swap(global::board[cur_r][cur_c], global::board[cur_r-1][cur_c]);
+            score[3] = computeFitness(global::board[cur_r][cur_c], global::board[cur_r-1][cur_c]);
         }
         
         double best_move = fitness();
@@ -104,6 +91,17 @@ vector<int> II(int loop, int r, int c){
     return path;
 }
 
+void print(){
+    for(int i = 0; i < global::row; i++){
+        for(int j = 0; j < global::col; j++)
+            cout << global::board[i][j] << " ";
+        cout << endl;
+    }
+    cout << "adjacent: " << checkAdjacent() << endl;
+    cout << "combo: " << checkCombo() << endl;
+    cout << "fitness: " << fitness() << endl << endl;
+}
+
 void analysis(){
     srand(time(0));
     int times = 50;
@@ -113,7 +111,7 @@ void analysis(){
         while(run--){
             initRandomize();
             before += checkCombo();
-            II(500, 0, 0);
+            trackHeuristic(500, 0, 0);
             after += checkCombo();
         }
         cout << "improve: " << (after+0.1)/1000 - (before+0.1)/1000 << "\tresult: " << (after+0.1)/1000 << endl;
